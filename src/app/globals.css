@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Light mode (base tokens; overridden by .dark below) */
+  --bg: #e8eef3;
+  --bg-raised: #d8e2e9;
+  --fg: #15130f;
+  --fg-muted: #6b665c;
+  --accent: #e8703a;
+  --accent-fg: #0a0a0a; /* fixed — always dark text on top of accent, doesn't invert with theme */
+  --border: #cdd8df;
+}
+
+.dark {
+  --bg: #0a0a0a;
+  --bg-raised: #131211;
+  --fg: #f5f4f0;
+  --fg-muted: #9a9791;
+  --accent: #e8703a;
+  --accent-fg: #0a0a0a;
+  --border: #26241f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-border: var(--border);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* Engraved/embossed look for the Process step numerals: thin stroke,
+   mostly-transparent fill, a dark inset edge below and a faint light rim
+   above so the numeral reads as carved into the surface. */
+.step-number {
+  color: color-mix(in srgb, var(--fg) 12%, transparent);
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--fg) 35%, transparent);
+  text-shadow:
+    0 1px 1px color-mix(in srgb, black 45%, transparent),
+    0 -1px 0 color-mix(in srgb, white 10%, transparent);
+}
